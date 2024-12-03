@@ -1,7 +1,7 @@
 #simon parker
 import re
 
-path = "input.txt"
+path = "test.txt"
 
 with open(path, "r") as f:
   lines = [x.strip('\n') for x in f.readlines()] 
@@ -12,12 +12,11 @@ sum = 0
 for data in lines:
   done = False
   while not done:
-    match = re.search(pattern, data)
-    if match is not None:
-      operands = [int(x) for x in match.group()[4:-1].split(',')]
+    command = re.search(pattern, data)
+    if command is not None:
+      operands = [int(x) for x in command.group()[4:-1].split(',')]
       sum += operands[0] * operands[1]
-      #data = data[0:match.span()[0]] + data[match.span()[1]:]
-      data = data[match.span()[1]:]
+      data = data[command.span()[1]:]
     else:
       done = True
   
